@@ -13,13 +13,17 @@ import type {
   DocumentListResponse,
   DocumentChunk,
   Integration,
+  IntegrationsHealthResponse,
   DocumentCompareRequest,
   DocumentCompareResponse,
   ResearchReportRequest,
   ResearchReportResponse,
 } from "@/types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:8000/api/v1";
 
 /* ── Token Management ────────────────────────────────── */
 
@@ -311,8 +315,8 @@ export const integrationsApi = {
     return apiFetch<Integration[]>("/integrations");
   },
 
-  async health(): Promise<Record<string, unknown>> {
-    return apiFetch("/integrations/health");
+  async health(): Promise<IntegrationsHealthResponse> {
+    return apiFetch<IntegrationsHealthResponse>("/integrations/health");
   },
 
   async execute(id: string): Promise<Record<string, unknown>> {

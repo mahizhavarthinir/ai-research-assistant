@@ -115,6 +115,20 @@ export interface Integration {
   icon: string | null;
 }
 
+export interface IntegrationHealthItem {
+  name: string;
+  server: string;
+  enabled: boolean;
+}
+
+export interface IntegrationsHealthResponse {
+  status: string;
+  total_tools?: number;
+  enabled_tools?: number;
+  error?: string;
+  integrations?: IntegrationHealthItem[];
+}
+
 /* ── Research Types (Phase 4) ────────────────────────── */
 
 export interface DocumentSummary {
