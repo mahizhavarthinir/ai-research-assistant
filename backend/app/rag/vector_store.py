@@ -6,9 +6,11 @@ Manages ChromaDB collections for storing and querying document embeddings.
 
 from __future__ import annotations
 
+import os
 import threading
 from typing import Optional
 
+os.environ["ANONYMIZED_TELEMETRY"] = "False"
 import chromadb
 from loguru import logger
 

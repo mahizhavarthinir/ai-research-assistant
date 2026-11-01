@@ -109,19 +109,21 @@ async function apiFetch<T>(
     headers,
   });
 
-  if (response.status === 401) {
+  if (response.status === 401 || (response.status === 403 && !getToken())) {
     // Try refreshing the token before giving up
-    const refreshed = await tryRefreshToken();
-    if (refreshed) {
-      // Retry the original request with the new token
-      const newHeaders = { ...headers, Authorization: `Bearer ${getToken()}` };
-      const retryResponse = await fetch(`${API_BASE}${path}`, {
-        ...options,
-        headers: newHeaders,
-      });
-      if (retryResponse.ok) {
-        if (retryResponse.status === 204) return undefined as T;
-        return retryResponse.json();
+    if (response.status === 401) {
+      const refreshed = await tryRefreshToken();
+      if (refreshed) {
+        // Retry the original request with the new token
+        const newHeaders = { ...headers, Authorization: `Bearer ${getToken()}` };
+        const retryResponse = await fetch(`${API_BASE}${path}`, {
+          ...options,
+          headers: newHeaders,
+        });
+        if (retryResponse.ok) {
+          if (retryResponse.status === 204) return undefined as T;
+          return retryResponse.json();
+        }
       }
     }
     clearToken();
