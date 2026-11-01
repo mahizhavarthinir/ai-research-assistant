@@ -1,0 +1,98 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+.nyc_output/
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Production builds
+frontend/build/
+dist/
+
+# Environment variables (NEVER commit these)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+backend/.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+backend/venv/
+backend/.venv/
+*.egg-info/
+*.egg
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Database
+*.db
+*.sqlite3
+
+# Uploads and user documents
+uploads/
+backend/uploads/
+backend/storage/
+chroma_data/
+backend/chroma_data/
+backend/data/chroma/
+backend/scratch/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Pytest
+.pytest_cache/
+htmlcov/
+
+# MyPy
+.mypy_cache/
+
+# Alembic
+migrations/versions/__pycache__/
+
+# Secrets and keys
+*.pem
+*.key
+*.cert
+*.crt
+secrets/
