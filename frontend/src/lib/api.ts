@@ -20,14 +20,24 @@ import type {
   ResearchReportResponse,
 } from "@/types";
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE_URL ||
-  process.env.NEXT_PUBLIC_API_URL ||
-  (typeof window !== "undefined"
-    ? "/api/v1"
-    : (process.env.NODE_ENV === "production"
-        ? "https://ai-research-assistant-backend-j2sj.onrender.com/api/v1"
-        : "http://localhost:8000/api/v1"));
+const API_BASE = (() => {
+  const customUrl = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.NEXT_PUBLIC_API_URL;
+  // If custom URL is set and not pointing to localhost in production, use it
+  if (customUrl && !(process.env.NODE_ENV === "production" && customUrl.includes("localhost"))) {
+    return customUrl.replace(/\/+$/, "");
+  }
+  // In the browser, always default to the unified same-origin reverse proxy
+  if (typeof window !== "undefined") {
+    return "/api/v1";
+  }
+  // In server-side rendering or node environment, fall back to backend URL
+  return (
+    process.env.BACKEND_INTERNAL_URL ||
+    (process.env.NODE_ENV === "production"
+      ? "https://ai-research-assistant-backend-j2sj.onrender.com/api/v1"
+      : "http://localhost:8000/api/v1")
+  );
+})();
 
 /* ── Token Management ────────────────────────────────── */
 
